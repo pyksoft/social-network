@@ -25,7 +25,7 @@ Each friend has one account.
 ## Account
 - email
 - password
-- profile (has_one)
+- Profile (has_one)
 
 ## Profile
 - first_name
