@@ -12,4 +12,6 @@
 <%= image_tag @profile.photo, width: 200 %>
 
 <br/><br/>
-See Friends List
+
+<%= link_to "See all #{@friends_count} Friends", friends_path %><br/>
+<%= link_to "Add a Friend", new_friend_path %>
