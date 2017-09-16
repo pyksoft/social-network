@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>SocialNetwork</title>
+    <title>Social Network</title>
     <%= csrf_meta_tags %>
 
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
@@ -9,6 +9,11 @@
   </head>
 
   <body>
-    <%= yield %>
+    <div class="container">
+      <%= render 'partials/navbar' %>
+      <div class="notice alert-success"><%= notice %></div>
+      <div class="alert"><p class="alert-danger"><%= alert %></p></div>
+      <%= yield %>
+    </div>
   </body>
 </html>
