@@ -24,15 +24,27 @@ class FriendsController < ApplicationController
   # POST /friends
   # POST /friends.json
   def create
-    @friend = Friend.new(friend_params)
+    @friend = Friend.new(friend_params)    
 
+    @profiles = Profile.where("account_id = #{@friend.friend_account_id}")
+
+    puts "account_id = #{@friend.friend_account_id}"
+    print "Profile size: "
+    puts @profiles.size
+
+  
     # Link friend to current account
     @friend.account_id = current_account.id
 
     respond_to do |format|
-      if @friend.save
-        format.html { redirect_to @friend, notice: 'Friend was successfully created.' }
-        format.json { render :show, status: :created, location: @friend }
+      if @profiles.size > 0
+        if @friend.save
+          format.html { redirect_to @friend, notice: 'Friend was successfully created.' }
+          format.json { render :show, status: :created, location: @friend }
+        else
+          format.html { render :new }
+          format.json { render json: @friend.errors, status: :unprocessable_entity }
+        end
       else
         format.html { render :new }
         format.json { render json: @friend.errors, status: :unprocessable_entity }
