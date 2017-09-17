@@ -26,6 +26,9 @@ class FriendsController < ApplicationController
   def create
     @friend = Friend.new(friend_params)
 
+    # Link friend to current account
+    @friend.account = current_account
+
     respond_to do |format|
       if @friend.save
         format.html { redirect_to @friend, notice: 'Friend was successfully created.' }

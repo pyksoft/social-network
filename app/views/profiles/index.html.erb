@@ -2,6 +2,13 @@
 
 <h1>Profiles</h1>
 
+<%= form_tag profiles_path, :method => 'get' do %>
+  <p>
+    <%= text_field_tag :search, params[:search] %>
+    <%= submit_tag "Search", :name => nil %>
+  </p>
+<% end %>
+
 <table>
   <thead>
     <tr>
@@ -29,3 +36,5 @@
 <br>
 
 <%= link_to 'New Profile', new_profile_path %>
+
+

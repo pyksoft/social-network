@@ -4,7 +4,15 @@ class ProfilesController < ApplicationController
   # GET /profiles
   # GET /profiles.json
   def index
-    @profiles = Profile.all
+    
+    if params[:search]
+      @profiles = Profile.where('first_name LIKE ?', "%#{params[:search]}%")
+    else
+      # @profiles = Profile.find(:all)
+      @profiles = Profile.all
+    end
+    # @profiles = Profile.search(params[:search])
+    
   end
 
   # GET /profiles/1
