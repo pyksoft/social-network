@@ -6,13 +6,11 @@ class ProfilesController < ApplicationController
   def index
     
     if params[:search]
-      @profiles = Profile.where('first_name LIKE ?', "%#{params[:search]}%")
+      @profiles = Profile.where('first_name LIKE ? AND account_id <> ?', "%#{params[:search]}%", "#{current_account.id}")
     else
-      # @profiles = Profile.find(:all)
-      @profiles = Profile.all
+      @profiles = Profile.where('account_id <> ?', "#{current_account.id}")
     end
-    # @profiles = Profile.search(params[:search])
-    
+
   end
 
   # GET /profiles/1

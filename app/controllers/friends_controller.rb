@@ -27,7 +27,7 @@ class FriendsController < ApplicationController
     @friend = Friend.new(friend_params)
 
     # Link friend to current account
-    @friend.account = current_account
+    @friend.account_id = current_account.id
 
     respond_to do |format|
       if @friend.save
