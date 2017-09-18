@@ -7,9 +7,9 @@ class ProfilesController < ApplicationController
     
     # Search Profile Functionality
     if params[:search]
-      @profiles = Profile.where('first_name LIKE ? AND account_id <> ?', "%#{params[:search]}%", "#{current_account.id}")
+      @profiles = Profile.where('(first_name LIKE ? OR last_name LIKE ? OR first_name||" "||last_name LIKE ?) AND account_id <> ?', "%#{params[:search]}%", "%#{params[:search]}%", "%#{params[:search]}%", current_account.id)
     else
-      @profiles = Profile.where('account_id <> ?', "#{current_account.id}")
+      @profiles = Profile.where('account_id <> ?', current_account.id)
     end
 
     # Detect if profile is already a friend of the current account
