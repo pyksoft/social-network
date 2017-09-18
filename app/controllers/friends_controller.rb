@@ -44,11 +44,24 @@ class FriendsController < ApplicationController
     # Only get my Friends
     @friends = Friend.where("account_id = ?", current_account.id)
     # @friends = Friend.all
+
+    @friends.each { |friend|
+      profile = Profile.where("account_id = ?", friend.friend_account_id).first
+      
+      friend.first_name = profile.first_name
+      friend.last_name = profile.last_name
+      friend.photo = profile.photo
+    }
   end
 
   # GET /friends/1
   # GET /friends/1.json
   def show
+    profile = Profile.where("account_id = ?", @friend.friend_account_id).first
+    
+    @friend.first_name = profile.first_name
+    @friend.last_name = profile.last_name
+    @friend.photo = profile.photo
   end
 
   # GET /friends/new

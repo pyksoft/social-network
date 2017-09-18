@@ -50,14 +50,3 @@
 <%= link_to 'Back to Home', root_path %> |
 <%= link_to 'All Profiles', profiles_path %>
 <%# <%= link_to 'New Profile', new_profile_path %>
-
-
-<br><br>
-
-<%= @friends.size %>
-
-<% @friends.each do |friend| %>
-  <p>
-    <%= friend.account.profile.first_name %>
-  </p>
-<% end %>

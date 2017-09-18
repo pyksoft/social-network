@@ -1,9 +1,10 @@
-<p id="notice"><%= notice %></p>
+<!-- <p id="notice"><%#= notice %></p> -->
 
 <p>
-  <strong>Friend account:</strong>
-  <%= @friend.friend_account_id %>
+  <h1><%= @friend.first_name + ' ' + @friend.last_name %></h1>
+  <%#= @friend.friend_account_id %>
+  <%= image_tag @friend.photo, width: 200 %>
 </p>
 
-<%= link_to 'Edit', edit_friend_path(@friend) %> |
+<%#= link_to 'Edit', edit_friend_path(@friend) %>
 <%= link_to 'Back', friends_path %>
