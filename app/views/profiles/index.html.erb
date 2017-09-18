@@ -31,7 +31,7 @@
         <!-- <td><%#= profile.account_id %></td> -->
         <!-- <td><%#= profile.friend_id %></td> -->
         
-        <td><%= link_to 'View Profile', profile, class: 'btn btn-sm btn-primary' %></td>
+        <td><%= link_to 'View Profile', profile, class: 'btn btn-md btn-primary' %></td>
 
         <% if !profile.is_followed %>
           <td><%= link_to 'Add as Friend', "/friends/new/#{profile.account_id}", class: 'btn btn-md btn-success' %></td>

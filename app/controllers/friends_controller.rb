@@ -21,8 +21,19 @@ class FriendsController < ApplicationController
     # Manually link my friend's account to his account id
     @friend.friend_account_id = @friend_profile.account_id
 
-    # Save to Follow Friend
-    @friend.save
+    # Check if friend was already added previously
+    friend_already_exists = Friend.where("friend_account_id = ?", @friend_account_id)
+    if friend_already_exists.size == 0
+      # Save to Add Friend
+      @friend.save
+
+      # Your friend will now add you as friend
+      his_account = Account.where("id = ?", @friend_account_id).first
+      @his_friend = Friend.new
+      @his_friend.account = his_account
+      @his_friend.friend_account_id = current_account.id
+      @his_friend.save
+    end
 
     # respond_to do |format|
     #   if @friend.save
@@ -121,9 +132,16 @@ class FriendsController < ApplicationController
   # DELETE /friends/1
   # DELETE /friends/1.json
   def destroy
+
+    # Your friend will first remove you as friend
+    your_friend = Friend.where("account_id = ? AND friend_account_id = ?", @friend.friend_account_id, current_account.id).first
+    your_friend.destroy
+
+    # Now, Remove your friend
     @friend.destroy
+
     respond_to do |format|
-      format.html { redirect_to friends_url, notice: 'Friend was successfully destroyed.' }
+      format.html { redirect_to friends_url, notice: 'Friend was successfully removed.' }
       format.json { head :no_content }
     end
   end

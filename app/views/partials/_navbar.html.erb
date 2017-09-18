@@ -1,11 +1,13 @@
 <nav>
-<% if account_signed_in? %>
-    <li>
-    <%= link_to('Sign Out', destroy_account_session_path, method: :delete) %>        
-    </li>
-<% else %>
-    <li>
-    <%= link_to('Sign In', new_account_session_path)  %>  
-    </li>
-<% end %>
+    <ul>
+    <% if account_signed_in? %>
+        <li>
+        <%= link_to('Sign Out', destroy_account_session_path, method: :delete, class: 'btn btn-sm btn-primary') %>        
+        </li>
+    <% else %>
+        <li>
+        <%= link_to('Sign In', new_account_session_path, class: 'btn btn-sm btn-primary')  %>  
+        </li>
+    <% end %>
+    </ul>
 </nav>

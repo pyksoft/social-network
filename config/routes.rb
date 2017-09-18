@@ -1,9 +1,10 @@
 Rails.application.routes.draw do
   #resources :friends
-  resources :friends do
+  resources :friends, :only => [:index, :show, :new, :destroy] do
     get ":friend_account_id", to: "friends#friend_add", on: :new
   end
-  resources :profiles
+  resources :profiles, :only => [:index, :show, :new, :edit] do
+  end
   devise_for :accounts
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 
