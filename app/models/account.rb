@@ -5,4 +5,5 @@ class Account < ApplicationRecord
          :recoverable, :rememberable, :trackable, :validatable
   
   has_one :profile
+  has_many :friend
 end

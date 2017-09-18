@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   #resources :friends
   resources :friends do
-    get ":friend_account_id", to: "friends#follow", on: :new
+    get ":friend_account_id", to: "friends#friend_add", on: :new
   end
   resources :profiles
   devise_for :accounts

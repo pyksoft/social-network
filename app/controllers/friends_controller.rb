@@ -2,16 +2,26 @@ class FriendsController < ApplicationController
   before_action :set_friend, only: [:show, :edit, :update, :destroy]
 
   # GET /friends/new/1
-  def follow
+  def friend_add
     # @friend = Friend.new(friend_params) 
     # puts @friend.account_id
     @friend_account_id = params[:friend_account_id]
-    @profiles = Profile.where("account_id = #{@friend_account_id}")
+    
+    # # Get my profile
+    # @my_profile = Profile.where("account_id = ?", current_account.id).first
 
-    # Link friend to current account
+    # Get my friend's profile
+    @friend_profile = Profile.where("account_id = ?", @friend_account_id).first
+
+
     @friend = Friend.new
-    @friend.account_id = current_account.id
-    @friend.friend_account_id = @profiles.first.account_id
+    # Link my friend's profile to my profile
+    @friend.account = current_account
+
+    # Manually link my friend's account to his account id
+    @friend.friend_account_id = @friend_profile.account_id
+
+    # Save to Follow Friend
     @friend.save
 
     # respond_to do |format|
@@ -28,7 +38,12 @@ class FriendsController < ApplicationController
   # GET /friends
   # GET /friends.json
   def index
-    @friends = Friend.all
+    # Get my profile
+    # @my_profile = Profile.where("account_id = ?", current_account.id).first
+
+    # Only get my Friends
+    @friends = Friend.where("account_id = ?", current_account.id)
+    # @friends = Friend.all
   end
 
   # GET /friends/1
@@ -58,7 +73,7 @@ class FriendsController < ApplicationController
 
   
     # Link friend to current account
-    @friend.account_id = current_account.id
+    # @friend.account_id = current_account.id
 
     respond_to do |format|
       if @profiles.size > 0

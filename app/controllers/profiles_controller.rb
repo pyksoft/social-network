@@ -15,6 +15,23 @@ class ProfilesController < ApplicationController
     # Detect if profile is already a friend of the current account
     # Friend.where('account_id = ? AND friend_account_id = ?', "#{current_account.id}", @profiles.)
 
+    # Get my friends
+    @friends = Friend.where('account_id = ?', current_account.id)
+
+    # Check profile if you follow them
+    @profiles.each { |profile|
+      
+      friend = @friends.detect { |friend|
+        friend.account_id == current_account.id && profile.account_id == friend.friend_account_id
+      }
+      
+      if friend.nil?
+        profile.is_followed = false
+      else
+        profile.is_followed = true
+        profile.friend_id = friend.id
+      end
+    }
   end
 
   # GET /profiles/1

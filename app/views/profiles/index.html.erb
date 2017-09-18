@@ -16,6 +16,7 @@
       <th>First name</th>
       <th>Last name</th>
       <th>Account ID</th>
+      <th>Friend ID</th>
       
       <th colspan="2"></th>
     </tr>
@@ -28,9 +29,15 @@
         <td><%= profile.first_name %></td>
         <td><%= profile.last_name %></td>
         <td><%= profile.account_id %></td>
+        <td><%= profile.friend_id %></td>
         
         <td><%= link_to 'View Profile', profile %></td>
-        <td>| <%= link_to 'Follow Friend', "/friends/new/#{profile.account_id}" %></td>
+
+        <% if !profile.is_followed %>
+        <td>| <%= link_to 'Add as Friend', "/friends/new/#{profile.account_id}" %></td>
+        <% else %>
+        <td>| <%= link_to 'Remove Friend', "/friends/#{profile.friend_id}", method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <% end %>
         <%#= link_to 'Edit', edit_profile_path(profile) %>
         <%#= link_to 'Destroy', profile, method: :delete, data: { confirm: 'Are you sure?' } %>
       </tr>
@@ -45,3 +52,12 @@
 <%# <%= link_to 'New Profile', new_profile_path %>
 
 
+<br><br>
+
+<%= @friends.size %>
+
+<% @friends.each do |friend| %>
+  <p>
+    <%= friend.account.profile.first_name %>
+  </p>
+<% end %>

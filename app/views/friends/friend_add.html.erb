@@ -1,0 +1,4 @@
+<h1>You just followed <%= @friend_profile.first_name + ' ' + @friend_profile.last_name %></h1>
+<%= image_tag @friend_profile.photo, width: 200 %>
+<br>
+<%= link_to 'Back to Home', root_path %>

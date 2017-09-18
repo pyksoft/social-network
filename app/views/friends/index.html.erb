@@ -5,7 +5,9 @@
 <table>
   <thead>
     <tr>
-      <th>Friend account</th>
+      <th>ID</th>
+      <th>Your account id</th>
+      <th>Friend's account id</th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -13,6 +15,8 @@
   <tbody>
     <% @friends.each do |friend| %>
       <tr>
+          <td><%= friend.id %></td>
+        <td><%= friend.account_id %></td>
         <td><%= friend.friend_account_id %></td>
         <td><%= link_to 'Show', friend %></td>
         <td><%= link_to 'Edit', edit_friend_path(friend) %></td>

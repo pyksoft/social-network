@@ -9,10 +9,11 @@ class HomeController < ApplicationController
             p.account_id == current_account.id
         }
 
-        puts "current_account: #{current_account.id}"
+        puts "current account id: #{current_account.id}"
+        # puts "current profile id: #{@profile.id}"
 
-        # Get friends
-        @friends = Friend.all
+        # Get friends of current user
+        @friends = Friend.where("account_id = ?", current_account.id)
         @friends_count = @friends.count
 
         # Check if user's profile exists, if not create one
