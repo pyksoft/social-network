@@ -30,7 +30,7 @@
         <td><%= profile.account_id %></td>
         
         <td><%= link_to 'View Profile', profile %></td>
-        <td>| Add as a Friend</td>
+        <td>| <%= link_to 'Follow Friend', "/friends/new/#{profile.account_id}" %></td>
         <%#= link_to 'Edit', edit_profile_path(profile) %>
         <%#= link_to 'Destroy', profile, method: :delete, data: { confirm: 'Are you sure?' } %>
       </tr>

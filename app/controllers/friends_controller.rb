@@ -1,6 +1,30 @@
 class FriendsController < ApplicationController
   before_action :set_friend, only: [:show, :edit, :update, :destroy]
 
+  # GET /friends/new/1
+  def follow
+    # @friend = Friend.new(friend_params) 
+    # puts @friend.account_id
+    @friend_account_id = params[:friend_account_id]
+    @profiles = Profile.where("account_id = #{@friend_account_id}")
+
+    # Link friend to current account
+    @friend = Friend.new
+    @friend.account_id = current_account.id
+    @friend.friend_account_id = @profiles.first.account_id
+    @friend.save
+
+    # respond_to do |format|
+    #   if @friend.save
+    #     format.html { redirect_to @friend, notice: 'Friend was successfully created.' }
+    #     format.json { render :show, status: :created, location: @friend }
+    #   else
+    #     format.html { render :new }
+    #     format.json { render json: @friend.errors, status: :unprocessable_entity }
+    #   end
+    # end
+  end
+
   # GET /friends
   # GET /friends.json
   def index
@@ -28,9 +52,9 @@ class FriendsController < ApplicationController
 
     @profiles = Profile.where("account_id = #{@friend.friend_account_id}")
 
-    puts "account_id = #{@friend.friend_account_id}"
-    print "Profile size: "
-    puts @profiles.size
+    # puts "account_id = #{@friend.friend_account_id}"
+    # print "Profile size: "
+    # puts @profiles.size
 
   
     # Link friend to current account

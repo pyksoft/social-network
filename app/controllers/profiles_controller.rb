@@ -5,11 +5,15 @@ class ProfilesController < ApplicationController
   # GET /profiles.json
   def index
     
+    # Search Profile Functionality
     if params[:search]
       @profiles = Profile.where('first_name LIKE ? AND account_id <> ?', "%#{params[:search]}%", "#{current_account.id}")
     else
       @profiles = Profile.where('account_id <> ?', "#{current_account.id}")
     end
+
+    # Detect if profile is already a friend of the current account
+    # Friend.where('account_id = ? AND friend_account_id = ?', "#{current_account.id}", @profiles.)
 
   end
 
