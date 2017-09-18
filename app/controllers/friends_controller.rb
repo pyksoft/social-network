@@ -70,6 +70,7 @@ class FriendsController < ApplicationController
   def show
     profile = Profile.where("account_id = ?", @friend.friend_account_id).first
     
+    # Copy details to friend attr_accessor
     @friend.first_name = profile.first_name
     @friend.last_name = profile.last_name
     @friend.photo = profile.photo
@@ -88,18 +89,11 @@ class FriendsController < ApplicationController
   # POST /friends.json
   def create
     @friend = Friend.new(friend_params)    
-
-    @profiles = Profile.where("account_id = #{@friend.friend_account_id}")
-
-    # puts "account_id = #{@friend.friend_account_id}"
-    # print "Profile size: "
-    # puts @profiles.size
-
-  
-    # Link friend to current account
-    # @friend.account_id = current_account.id
+    @profiles = Profile.where("account_id = ?", @friend.friend_account_id)
 
     respond_to do |format|
+
+      # CHeck if a profile exists for your friend
       if @profiles.size > 0
         if @friend.save
           format.html { redirect_to @friend, notice: 'Friend was successfully created.' }
