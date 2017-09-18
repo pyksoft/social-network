@@ -1,6 +1,6 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Profiles</h1>
+<h1>Search Profiles</h1>
 
 <%= form_tag profiles_path, method: 'get' do %>
   <p>
@@ -9,14 +9,14 @@
   </p>
 <% end %>
 
-<table>
+<table class="table">
   <thead>
     <tr>
       <th>Photo</th>
       <th>First name</th>
       <th>Last name</th>
-      <th>Account ID</th>
-      <th>Friend ID</th>
+      <!-- <th>Account ID</th> -->
+      <!-- <th>Friend ID</th> -->
       
       <th colspan="2"></th>
     </tr>
@@ -28,15 +28,15 @@
         <td><%= image_tag profile.photo, width: 100 %></td>
         <td><%= profile.first_name %></td>
         <td><%= profile.last_name %></td>
-        <td><%= profile.account_id %></td>
-        <td><%= profile.friend_id %></td>
+        <!-- <td><%#= profile.account_id %></td> -->
+        <!-- <td><%#= profile.friend_id %></td> -->
         
-        <td><%= link_to 'View Profile', profile %></td>
+        <td><%= link_to 'View Profile', profile, class: 'btn btn-sm btn-primary' %></td>
 
         <% if !profile.is_followed %>
-        <td>| <%= link_to 'Add as Friend', "/friends/new/#{profile.account_id}" %></td>
+          <td><%= link_to 'Add as Friend', "/friends/new/#{profile.account_id}", class: 'btn btn-md btn-success' %></td>
         <% else %>
-        <td>| <%= link_to 'Remove Friend', "/friends/#{profile.friend_id}", method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          <td><%= link_to 'Remove Friend', "/friends/#{profile.friend_id}", method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-md btn-danger' %></td>
         <% end %>
         <%#= link_to 'Edit', edit_profile_path(profile) %>
         <%#= link_to 'Destroy', profile, method: :delete, data: { confirm: 'Are you sure?' } %>

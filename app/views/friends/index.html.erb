@@ -1,8 +1,8 @@
 <!-- <p id="notice"><%#= notice %></p> -->
 
-<h1>Friends</h1>
+<h1>These are all your Friends</h1>
 
-<table>
+<table class="table">
   <thead>
     <tr>
       <!-- <th>ID</th> -->
@@ -24,9 +24,10 @@
         <td><%= image_tag friend.photo, width: 100 %></td>
         <td><%= friend.first_name %></td>
         <td><%= friend.last_name %></td>
-        <td><%= link_to 'View Profile', friend %></td>
+        <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+        <td><%= link_to 'View Profile', friend, class: 'btn btn-md btn-primary' %></td>
         <!-- <td><%#= link_to 'Edit', edit_friend_path(friend) %></td> -->
-        <td>| <%= link_to 'Remove Friend', friend, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Remove Friend', friend, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-md btn-danger' %></td>
       </tr>
     <% end %>
   </tbody>
