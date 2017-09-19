@@ -13,11 +13,20 @@
 
 <br/><br/>
 
+<%= link_to "Edit your Profile", edit_profile_path(current_account.profile), class: 'btn btn-lg btn-primary' %>
 <%= link_to "See all #{@friends_count} Friends", friends_path, class: 'btn btn-lg btn-primary' %>
 <%= link_to "Search for a Profile", profiles_path, class: 'btn btn-lg btn-primary' %>
-<%= link_to "Post a Message", root_path, class: 'btn btn-lg btn-primary' %>
-<%= link_to "Post a Photo", root_path, class: 'btn btn-lg btn-primary' %>
+<%= link_to "New Post", new_news_path, class: 'btn btn-lg btn-primary' %>
 
 <br/><br/>
 
 <h2>News Feed</h2>
+
+<% if !@news.nil? %>
+    <% @news.each do |news| %>
+    <strong><%= news.profile.first_name + " " + news.profile.last_name %></strong><br/>
+    <%= news.message %><br/>
+    <%= image_tag news.photo, width: 300 %><br/>
+    <%= news.likes %> Likes <br/><br/>
+    <% end %>
+<% end %>

@@ -46,6 +46,10 @@ class ProfilesController < ApplicationController
 
   # GET /profiles/1/edit
   def edit
+    # You cannot edit other people's account
+    if @profile != current_account.profile
+      redirect_to root_path
+    end
   end
 
   # POST /profiles

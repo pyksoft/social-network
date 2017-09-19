@@ -26,9 +26,13 @@ class NewsController < ApplicationController
   def create
     @news = News.new(news_params)
 
+    # Initialise other values for News
+    @news.likes = 0
+    @news.profile = current_account.profile
+
     respond_to do |format|
       if @news.save
-        format.html { redirect_to @news, notice: 'News was successfully created.' }
+        format.html { redirect_to root_path, notice: 'News was successfully created.' }
         format.json { render :show, status: :created, location: @news }
       else
         format.html { render :new }
