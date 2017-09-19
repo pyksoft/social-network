@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :news
   #resources :friends
   resources :friends, :only => [:index, :show, :new, :destroy] do
     get ":friend_account_id", to: "friends#friend_add", on: :new
