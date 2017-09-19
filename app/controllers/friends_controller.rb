@@ -21,8 +21,8 @@ class FriendsController < ApplicationController
     # Manually link my friend's account to his account id
     @friend.friend_account_id = @friend_profile.account_id
 
-    # Check if friend was already added previously
-    friend_instances = Friend.where("friend_account_id = ?", @friend_account_id)
+    # Check if friend was already added previously on this account
+    friend_instances = Friend.where("account_id = ? AND friend_account_id = ?", current_account.id, @friend_account_id)
     if !friend_instances.nil? and friend_instances.size == 0
       # Save to Add Friend
       @friend.save
