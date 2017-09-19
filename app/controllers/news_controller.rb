@@ -19,6 +19,10 @@ class NewsController < ApplicationController
 
   # GET /news/1/edit
   def edit
+    # You cannot edit other people's post
+    if @news.profile != current_account.profile
+      redirect_to root_path
+    end
   end
 
   # POST /news
@@ -46,7 +50,7 @@ class NewsController < ApplicationController
   def update
     respond_to do |format|
       if @news.update(news_params)
-        format.html { redirect_to @news, notice: 'News was successfully updated.' }
+        format.html { redirect_to root_path, notice: 'News was successfully updated.' }
         format.json { render :show, status: :ok, location: @news }
       else
         format.html { render :edit }
@@ -58,9 +62,14 @@ class NewsController < ApplicationController
   # DELETE /news/1
   # DELETE /news/1.json
   def destroy
+    # You cannot delete other people's post
+    if @news.profile != current_account.profile
+      redirect_to root_path
+    end
+    
     @news.destroy
     respond_to do |format|
-      format.html { redirect_to news_index_url, notice: 'News was successfully destroyed.' }
+      format.html { redirect_to root_path, notice: 'News was successfully deleted.' }
       format.json { head :no_content }
     end
   end

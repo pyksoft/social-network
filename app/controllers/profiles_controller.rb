@@ -46,7 +46,7 @@ class ProfilesController < ApplicationController
 
   # GET /profiles/1/edit
   def edit
-    # You cannot edit other people's account
+    # You cannot edit other people's profile
     if @profile != current_account.profile
       redirect_to root_path
     end
@@ -62,7 +62,7 @@ class ProfilesController < ApplicationController
 
     respond_to do |format|
       if @profile.save
-        format.html { redirect_to @profile, notice: 'Profile was successfully created.' }
+        format.html { redirect_to root_path, notice: 'Profile was successfully created.' }
         format.json { render :show, status: :created, location: @profile }
       else
         format.html { render :new }
@@ -88,6 +88,11 @@ class ProfilesController < ApplicationController
   # DELETE /profiles/1
   # DELETE /profiles/1.json
   def destroy
+    # You cannot delete other people's profile
+    if @profile != current_account.profile
+      redirect_to root_path
+    end
+
     @profile.destroy
     respond_to do |format|
       format.html { redirect_to profiles_url, notice: 'Profile was successfully destroyed.' }

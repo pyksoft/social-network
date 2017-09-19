@@ -19,6 +19,7 @@
 <%= link_to "New Post", new_news_path, class: 'btn btn-lg btn-primary' %>
 
 <br/><br/>
+<hr>
 
 <h2>News Feed</h2>
 
@@ -26,7 +27,10 @@
     <% @news.each do |news| %>
     <strong><%= news.profile.first_name + " " + news.profile.last_name %></strong><br/>
     <%= news.message %><br/>
-    <%= image_tag news.photo, width: 300 %><br/>
-    <%= news.likes %> Likes <br/><br/>
+    <img src="<%= news.photo %>" width="300"/><br/>
+    <%= news.likes %> Likes
+    <% if news.profile.account_id == current_account.id %>
+    | <%= link_to "Edit Post", edit_news_path(news.id) %> | <%= link_to 'Delete Post', news, method: :delete, data: { confirm: 'Are you sure?' } %> <br/><br/>
+    <% end %>
     <% end %>
 <% end %>
