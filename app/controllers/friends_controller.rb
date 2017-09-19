@@ -22,8 +22,8 @@ class FriendsController < ApplicationController
     @friend.friend_account_id = @friend_profile.account_id
 
     # Check if friend was already added previously
-    friend_already_exists = Friend.where("friend_account_id = ?", @friend_account_id)
-    if friend_already_exists.size == 0
+    friend_instances = Friend.where("friend_account_id = ?", @friend_account_id)
+    if !friend_instances.nil? and friend_instances.size == 0
       # Save to Add Friend
       @friend.save
 
