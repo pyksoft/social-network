@@ -31,6 +31,8 @@
     <%= news.likes %> Likes
     <% if news.profile.account_id == current_account.id %>
     | <%= link_to "Edit Post", edit_news_path(news.id) %> | <%= link_to 'Delete Post', news, method: :delete, data: { confirm: 'Are you sure?' } %> <br/><br/>
+    <% else %>
+    <br><br>
     <% end %>
     <% end %>
 <% end %>
